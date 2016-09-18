@@ -1,0 +1,11 @@
+{
+  "name": "circuit",
+  "version": "1.0.0",
+  "description": "Climbing Circuit Logger",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Antoine Grant <antoine.grant@nytimes.com>",
+  "license": "ISC"
+}
