@@ -1,0 +1,20 @@
+default:
+  name: Circuit
+development:
+  apiKey: "AIzaSyCElyyG7EkW5RPTgNQavFG0-E1rPYtvUu0"
+  authDomain: "circuit-staging.firebaseapp.com"
+  databaseURL: "https://circuit-staging.firebaseio.com"
+  storageBucket: "circuit-staging.appspot.com"
+  messagingSenderId: "154091295945"
+staging:
+  apiKey: "AIzaSyCElyyG7EkW5RPTgNQavFG0-E1rPYtvUu0"
+  authDomain: "circuit-staging.firebaseapp.com"
+  databaseURL: "https://circuit-staging.firebaseio.com"
+  storageBucket: "circuit-staging.appspot.com"
+  messagingSenderId: "154091295945"
+production:
+  apiKey: AIzaSyAyvhsci33e5IRnTgfKlAjtQxVRT_KHWdE
+  authDomain: "circuit-8eb70.firebaseapp.com"
+  databaseURL: "https://circuit-8eb70.firebaseio.com"
+  storageBucket: "circuit-8eb70.appspot.com"
+  messagingSenderId: "794977535450"

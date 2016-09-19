@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "circuit-8eb70"
+    "default": "circuit-8eb70",
+    "staging": "circuit-staging"
   }
 }
