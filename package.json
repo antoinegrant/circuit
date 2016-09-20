@@ -4,8 +4,9 @@
   "description": "Climbing Circuit Logger",
   "main": "index.js",
   "scripts": {
-    "start": "cp src/index.html index.html && node tools/string-template-replace.js && react-scripts start",
-    "build": "cp src/index.html index.html && NODE_ENV=production node tools/string-template-replace.js && react-scripts build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "serve": "firebase serve",
     "deploy": "firebase deploy",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
