@@ -3,6 +3,13 @@
   "version": "1.0.0",
   "description": "Climbing Circuit Logger",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antoinegrant/circuit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/antoinegrant/circuit/issues"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -14,6 +21,7 @@
   "author": "Antoine Grant <antoine.grant@nytimes.com>",
   "license": "ISC",
   "dependencies": {
+    "firebase": "^3.4.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2"
   },
