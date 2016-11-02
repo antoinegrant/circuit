@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="./src/favicon.ico">
+    <title>Climbing Circuit Logger</title>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
+    <script>
+      firebase.initializeApp({
+        apiKey:             "<%= htmlWebpackPlugin.options.appConfig.apiKey %>",
+        authDomain:         "<%= htmlWebpackPlugin.options.appConfig.authDomain %>",
+        databaseURL:        "<%= htmlWebpackPlugin.options.appConfig.databaseURL %>",
+        storageBucket:      "<%= htmlWebpackPlugin.options.appConfig.storageBucket %>",
+        messagingSenderId:  "<%= htmlWebpackPlugin.options.appConfig.messagingSenderId %>",
+      });
+    </script>
+  </body>
+</html>

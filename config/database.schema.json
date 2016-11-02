@@ -1,0 +1,40 @@
+{
+  "climbing-gym": {
+    "allez-up": {
+      "name": "foo",
+      "circuits": ["circuit-id"]
+    }
+  },
+  "circuits": {
+    "circuit-id": {
+      "level-id": {
+        "climb-id": {
+          "foo": "foo"
+        }
+      }
+    }
+  },
+  "climbing-sessions": {
+    "user-id": {
+      "circuit-id": {
+        "elapsed-time": 0,
+        "completed": false,
+        "date-and-time": "0000-00-00",
+        "levels": {
+          "level-id": {
+            "elapsed-time": 0,
+            "completed": false,
+            "climbs": {
+              "climb-id": {
+                "num-of-try": 0,
+                "completed": false,
+                "passed": false,
+                "elapsed-time": 0
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

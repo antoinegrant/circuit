@@ -12,7 +12,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "NODE_ENV=staging react-scripts build",
     "serve": "firebase serve",
     "deploy": "firebase deploy",
     "test": "react-scripts test --env=jsdom",
@@ -23,7 +23,8 @@
   "dependencies": {
     "firebase": "^3.4.0",
     "react": "^15.3.2",
-    "react-dom": "^15.3.2"
+    "react-dom": "^15.3.2",
+    "react-router": "^4.0.0-alpha.5"
   },
   "devDependencies": {
     "glob": "^7.0.6",
