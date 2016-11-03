@@ -5,6 +5,10 @@ class User {
     userData = data
   }
 
+  get id() {
+    return userData.uid
+  }
+
   get name() {
     return userData.displayName
   }

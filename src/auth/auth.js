@@ -4,6 +4,18 @@ const firebase = window.firebase;
 const provider = new firebase.auth.GoogleAuthProvider()
 provider.addScope('https://www.googleapis.com/auth/plus.login')
 
+const getAdminStatus = (user) => {
+  if (!user) throw new Error('A user object is required')
+  return firebase
+    .database()
+    .ref('/admins')
+    .once('value')
+    .then(admins => {
+      let val = admins.val() || {}
+      return {...user, isAdmin: !!val[user.uid]}
+    })
+}
+
 let userObj = null
 let auth = {
 
@@ -11,6 +23,7 @@ let auth = {
   isAdmin: false,
 
   set user(user) {
+    console.log(user);
     if (!user) {
       userObj = null
       this.isAuthenticated = false
@@ -19,7 +32,7 @@ let auth = {
     }
     userObj = new User(user)
     this.isAuthenticated = true
-    this.isAdmin = true
+    this.isAdmin = user.isAdmin
     return this.user
   },
 
@@ -32,21 +45,24 @@ let auth = {
       firebase
         .auth()
         .onAuthStateChanged(user => {
-          this.user = user
           if (user) {
-            resolve(this.user)
+            resolve(user)
           } else {
             reject()
           }
         })
     })
+    .then(getAdminStatus)
+    .then(user => this.user = user)
   },
 
   signIn(cb) {
     return firebase
       .auth()
       .signInWithPopup(provider)
-      .then(result => this.user = result.user)
+      .then(result => result.user)
+      .then(getAdminStatus)
+      .then(user => this.user = user)
       .catch(error => {
         // Handle Errors here.
         var errorCode = error.code;

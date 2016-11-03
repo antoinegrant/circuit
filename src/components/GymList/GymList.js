@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 
+import auth from '../../auth'
 import { getGymList } from '../../actions'
 
 class GymList extends Component {
@@ -22,6 +23,9 @@ class GymList extends Component {
             {data.map(gym =>
               <li key={gym.id}>
                 <Link to={`/gym-${gym.id}`}>{gym.name}</Link>
+                {auth.isAdmin ? (
+                  <span> | Add circuit</span>
+                ) : null}
                 <div>{gym.phone}</div>
                 <address>{gym.address}</address>
               </li>
