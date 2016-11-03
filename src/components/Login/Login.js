@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router'
-import Auth from '../../Auth'
+import auth from '../../auth'
 
 class Login extends Component {
 
@@ -9,13 +9,14 @@ class Login extends Component {
   }
 
   login = () => {
-    Auth.authenticate()
+    auth
+      .signIn()
       .then(() => this.setState({ redirectToReferrer: true }))
   }
 
   componentDidMount() {
     this.isComponentMounted = true
-    Auth.authState(user => {
+    auth.state(user => {
       if (user && this.isComponentMounted) {
         this.setState({ redirectToReferrer: true })
       }
@@ -30,7 +31,7 @@ class Login extends Component {
     const { from } = this.props.location.state || { from: '/' }
     const { redirectToReferrer } = this.state
 
-    if (Auth.isAuthenticated && redirectToReferrer) {
+    if (auth.isAuthenticated && redirectToReferrer) {
       return <Redirect to={from} />
     }
 

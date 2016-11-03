@@ -1,19 +1,20 @@
 import React, { Component } from 'react'
-import Auth from '../../Auth'
+import auth from '../../auth'
 
 class Header extends Component {
 
   handleLogout = () => {
-    Auth.signout()
+    auth
+      .signOut()
       .then(() => this.props.router.transitionTo('/'))
   }
 
   render() {
     return (
       <div>
-        {Auth.isAuthenticated ? (
+        {auth.isAuthenticated ? (
           <div>
-            <div>Welcome, {Auth.user.name} <img src={Auth.user.avatar} width="100" alt="Avatar" /></div>
+            <div>Welcome, {auth.user.name} <img src={auth.user.avatar} width="100" alt="Avatar" /></div>
             <button onClick={this.handleLogout}>Sign out</button>
           </div>
         ) : null }

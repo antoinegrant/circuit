@@ -1,8 +1,17 @@
 import React from 'react'
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
 import Match from 'react-router/Match'
 import Redirect from 'react-router/Redirect'
 import Router from 'react-router/BrowserRouter'
-import Auth from '../../Auth'
+
+import auth from '../../auth'
+import circuitReducers from '../../reducers'
+let store = createStore(
+  circuitReducers,
+  applyMiddleware(thunk)
+)
 
 import Login from '../Login'
 import Header from '../Header'
@@ -15,9 +24,9 @@ import SessionList from '../SessionList'
 
 import styles from './App.css'
 
-const MatchWhenAuthorized = ({ component: Component, ...rest }) => (
+const MatchWhenauthorized = ({ component: Component, ...rest }) => (
   <Match {...rest} render={props => (
-    Auth.isAuthenticated ? (
+    auth.isAuthenticated ? (
       <Component {...props} />
     ) : (
       <Redirect to={{
@@ -29,16 +38,18 @@ const MatchWhenAuthorized = ({ component: Component, ...rest }) => (
 )
 
 const App = () => (
+  <Provider store={store}>
     <Router>
       {({ router }) => (
         <div className={ styles.App }>
           <Header router={router} />
           <Match exactly pattern="/login" component={Login} />
-          <MatchWhenAuthorized exactly pattern="/" component={GymList} />
-          <MatchWhenAuthorized exactly pattern="/gym-:gym_id" component={SessionList} />
+          <MatchWhenauthorized exactly pattern="/" component={GymList} />
+          <MatchWhenauthorized exactly pattern="/gym-:gym_id" component={SessionList} />
         </div>
       )}
     </Router>
+  </Provider>
 )
 
 // const App = () => (

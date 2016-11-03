@@ -1,44 +1,27 @@
+import User from './User';
+
 const firebase = window.firebase;
 const provider = new firebase.auth.GoogleAuthProvider()
 provider.addScope('https://www.googleapis.com/auth/plus.login')
-
-let userData = {}
-class User {
-  constructor(data) {
-    console.log(data);
-    userData = data
-  }
-
-  get name() {
-    return userData.displayName
-  }
-  get email() {
-    return userData.email
-  }
-  get emailVerified() {
-    return userData.emailVerified
-  }
-  get avatar() {
-    return userData.photoURL
-  }
-}
 
 export default {
 
   isAuthenticated: false,
   user: null,
 
-  authState(cb) {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.isAuthenticated = true
-        this.user = new User(user)
-      }
-      cb(this.user)
-    })
+  state(cb) {
+    return firebase
+      .auth()
+      .onAuthStateChanged((user) => {
+        if (user) {
+          this.isAuthenticated = true
+          this.user = new User(user)
+        }
+        cb(this.user)
+      })
   },
 
-  authenticate(cb) {
+  signIn(cb) {
     return firebase
       .auth()
       .signInWithPopup(provider)
@@ -59,7 +42,7 @@ export default {
       })
   },
 
-  signout() {
+  signOut() {
     this.isAuthenticated = false
     return firebase.auth().signOut()
   }
