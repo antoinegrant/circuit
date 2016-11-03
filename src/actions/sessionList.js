@@ -15,9 +15,9 @@ function fetchSessionList(userId) {
 export const getSessionList = (userId) => (
   (dispatch) => (
     fetchSessionList(userId).then(
-      sessionList => dispatch({
+      data => dispatch({
         type: 'GET_SESSION_LIST',
-        sessions: sessionList
+        data: data
       })
     )
   )

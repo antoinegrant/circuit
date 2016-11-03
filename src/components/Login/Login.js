@@ -5,7 +5,8 @@ import auth from '../../auth'
 class Login extends Component {
 
   state = {
-    redirectToReferrer: false
+    redirectToReferrer: false,
+    gettingAuthState: true
   }
 
   login = () => {
@@ -16,11 +17,14 @@ class Login extends Component {
 
   componentDidMount() {
     this.isComponentMounted = true
-    auth.state(user => {
-      if (user && this.isComponentMounted) {
-        this.setState({ redirectToReferrer: true })
-      }
-    })
+    auth
+      .state()
+      .then(() => {
+        if (this.isComponentMounted) {
+          this.setState({ redirectToReferrer: true, gettingAuthState: false })
+        }
+      })
+      .catch(() => this.setState({ gettingAuthState: false }))
   }
 
   componentWillUnmount() {
@@ -29,10 +33,14 @@ class Login extends Component {
 
   render() {
     const { from } = this.props.location.state || { from: '/' }
-    const { redirectToReferrer } = this.state
+    const { redirectToReferrer, gettingAuthState } = this.state
 
     if (auth.isAuthenticated && redirectToReferrer) {
       return <Redirect to={from} />
+    }
+
+    if (gettingAuthState) {
+      return <div>Authenticating...</div>
     }
 
     return (

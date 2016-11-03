@@ -4,33 +4,49 @@ const firebase = window.firebase;
 const provider = new firebase.auth.GoogleAuthProvider()
 provider.addScope('https://www.googleapis.com/auth/plus.login')
 
-export default {
+let userObj = null
+let auth = {
 
   isAuthenticated: false,
-  user: null,
+  isAdmin: false,
+
+  set user(user) {
+    if (!user) {
+      userObj = null
+      this.isAuthenticated = false
+      this.isAdmin = false
+      return
+    }
+    userObj = new User(user)
+    this.isAuthenticated = true
+    this.isAdmin = true
+    return this.user
+  },
+
+  get user() {
+    return userObj
+  },
 
   state(cb) {
-    return firebase
-      .auth()
-      .onAuthStateChanged((user) => {
-        if (user) {
-          console.log(user);
-          this.isAuthenticated = true
-          this.user = new User(user)
-        }
-        cb(this.user)
-      })
+    return new Promise((resolve, reject) => {
+      firebase
+        .auth()
+        .onAuthStateChanged(user => {
+          this.user = user
+          if (user) {
+            resolve(this.user)
+          } else {
+            reject()
+          }
+        })
+    })
   },
 
   signIn(cb) {
     return firebase
       .auth()
       .signInWithPopup(provider)
-      .then(result => {
-        this.token = result.credential.accessToken
-        this.user = new User(result.user)
-        this.isAuthenticated = true
-      })
+      .then(result => this.user = result.user)
       .catch(error => {
         // Handle Errors here.
         var errorCode = error.code;
@@ -44,7 +60,11 @@ export default {
   },
 
   signOut() {
-    this.isAuthenticated = false
-    return firebase.auth().signOut()
+    return firebase
+      .auth()
+      .signOut()
+      .then(() => this.user = null)
   }
 }
+
+export default auth

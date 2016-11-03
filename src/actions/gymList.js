@@ -5,11 +5,11 @@ function fetchGymList() {
     .ref('/climbing-gyms')
     .once('value')
     .then((snapshot) => {
-      let gyms = snapshot.val();
-      return Object.keys(gyms)
+      let data = snapshot.val();
+      return Object.keys(data)
         .map(key => ({
           id: key,
-          ...gyms[key]
+          ...data[key]
         }))
     })
 }
@@ -17,9 +17,9 @@ function fetchGymList() {
 export const getGymList = () => (
   (dispatch) => (
     fetchGymList().then(
-      gymList => dispatch({
+      data => dispatch({
         type: 'GET_GYM_LIST',
-        gyms: gymList
+        data: data
       })
     )
   )

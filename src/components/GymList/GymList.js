@@ -11,25 +11,32 @@ class GymList extends Component {
   }
 
   render() {
-    const { gyms } = this.props
+    const { data, loaded } = this.props
 
     return (
       <div>
-        <ul>
-          {gyms.map(gym =>
-            <li key={gym.id}>
-              <Link to={`/gym-${gym.id}`}>{gym.name}</Link>
-              <div>{gym.phone}</div>
-              <address>{gym.address}</address>
-            </li>
-          )}
-        </ul>
+        {!loaded ? (
+          <div>Getting list of gyms...</div>
+        ) : (
+          <ul>
+            {data.map(gym =>
+              <li key={gym.id}>
+                <Link to={`/gym-${gym.id}`}>{gym.name}</Link>
+                <div>{gym.phone}</div>
+                <address>{gym.address}</address>
+              </li>
+            )}
+          </ul>
+        )}
       </div>
     )
   }
 }
 
-const mapStateToProps = ({ gyms }) => ({ gyms })
+const mapStateToProps = ({ gymList }) => ({
+  ...gymList,
+  data: gymList.data
+})
 export default connect(
   mapStateToProps
 )(GymList)

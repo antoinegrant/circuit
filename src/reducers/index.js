@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
-import gyms from './gyms'
-import sessions from './sessions'
+import gymList from './gymList'
+import sessionList from './sessionList'
 
 const circuitApp = combineReducers({
-  gyms,
-  sessions
+  gymList,
+  sessionList
 })
 
 export default circuitApp

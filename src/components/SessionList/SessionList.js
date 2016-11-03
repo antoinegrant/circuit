@@ -12,21 +12,28 @@ class SessionList extends Component {
   }
 
   render() {
-    const { sessions, pathname } = this.props
+    const { data, loaded, pathname } = this.props
 
     return (
       <div>
         <Link to={`${pathname}/new-session`}>New Session</Link>
-        <ul>
-          {sessions.map(session =>
-            <li key={session.id}><Link to={`${pathname}/${session.id}`}>{session.name}</Link></li>)}
-        </ul>
+        {!loaded ? (
+          <div>Getting list of sessions...</div>
+        ) : (
+          <ul>
+            {data.map(session =>
+              <li key={session.id}><Link to={`${pathname}/${session.id}`}>{session.name}</Link></li>)}
+          </ul>
+        )}
       </div>
     )
   }
 }
 
-const mapStateToProps = ({ sessions }) => ({ sessions })
+const mapStateToProps = ({ sessionList }) => ({
+  ...sessionList,
+  data: sessionList.data
+})
 export default connect(
   mapStateToProps
 )(SessionList)

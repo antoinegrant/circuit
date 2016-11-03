@@ -1,4 +1,4 @@
-import { getGymList } from './gyms';
-import { getSessionList } from './sessions';
+import { getGymList } from './gymList';
+import { getSessionList } from './sessionList';
 
 export { getGymList, getSessionList }
