@@ -17,9 +17,10 @@
   "climbing-sessions": {
     "user-id": {
       "circuit-id": {
+        "name": "foo",
         "elapsed-time": 0,
         "completed": false,
-        "date-and-time": "0000-00-00",
+        "timestamp": "0000-00-00",
         "levels": {
           "level-id": {
             "elapsed-time": 0,

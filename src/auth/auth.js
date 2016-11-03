@@ -14,6 +14,7 @@ export default {
       .auth()
       .onAuthStateChanged((user) => {
         if (user) {
+          console.log(user);
           this.isAuthenticated = true
           this.user = new User(user)
         }
