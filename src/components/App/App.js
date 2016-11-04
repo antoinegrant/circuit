@@ -24,7 +24,7 @@ import SessionList from '../SessionList'
 
 import styles from './App.css'
 
-const MatchWhenauthorized = ({ component: Component, ...rest }) => (
+const MatchWhenAuthorized = ({ component: Component, ...rest }) => (
   <Match {...rest} render={props => (
     auth.isAuthenticated ? (
       <Component {...props} />
@@ -36,6 +36,17 @@ const MatchWhenauthorized = ({ component: Component, ...rest }) => (
     )
   )} />
 )
+const MatchWhenAdmin = ({ component: Component, ...rest }) => (
+  <Match {...rest} render={props => (
+    auth.isAdmin ? (
+      <Component {...props} />
+    ) : (
+      <Redirect to='/' />
+    )
+  )} />
+)
+
+const HelloWorld = () => (<h1>Hello World</h1>)
 
 const App = () => (
   <Provider store={store}>
@@ -44,8 +55,11 @@ const App = () => (
         <div className={ styles.App }>
           <Header router={router} />
           <Match exactly pattern="/login" component={Login} />
-          <MatchWhenauthorized exactly pattern="/" component={GymList} />
-          <MatchWhenauthorized exactly pattern="/gym-:gym_id" component={SessionList} />
+
+          <MatchWhenAuthorized exactly pattern="/" component={GymList} />
+          <MatchWhenAuthorized exactly pattern="/gym-:gym_id" component={SessionList} />
+
+          <MatchWhenAdmin exactly pattern="/gym-:gym_id/add-circuit" component={HelloWorld} />
         </div>
       )}
     </Router>

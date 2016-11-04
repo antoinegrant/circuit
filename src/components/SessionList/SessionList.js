@@ -8,7 +8,7 @@ import auth from '../../auth'
 class SessionList extends Component {
 
   componentWillMount() {
-    this.props.dispatch(getSessionList(auth.user.uid))
+    this.props.getSessionList && this.props.getSessionList(auth.user.id)
   }
 
   render() {
@@ -34,6 +34,10 @@ const mapStateToProps = ({ sessionList }) => ({
   ...sessionList,
   data: sessionList.data
 })
+const mapDispatchToProps = (dispatch) => ({
+  getSessionList: (userId) => dispatch(getSessionList(userId))
+})
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(SessionList)

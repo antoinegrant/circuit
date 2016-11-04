@@ -8,7 +8,7 @@ import { getGymList } from '../../actions'
 class GymList extends Component {
 
   componentWillMount() {
-    this.props.dispatch(getGymList())
+    this.props.getGymList && this.props.getGymList()
   }
 
   render() {
@@ -24,7 +24,7 @@ class GymList extends Component {
               <li key={gym.id}>
                 <Link to={`/gym-${gym.id}`}>{gym.name}</Link>
                 {auth.isAdmin ? (
-                  <span> | Add circuit</span>
+                  <span> | <Link to={`/gym-${gym.id}/add-circuit`}>Add Circuit</Link></span>
                 ) : null}
                 <div>{gym.phone}</div>
                 <address>{gym.address}</address>
@@ -41,6 +41,10 @@ const mapStateToProps = ({ gymList }) => ({
   ...gymList,
   data: gymList.data
 })
+const mapDispatchToProps = (dispatch) => ({
+  getGymList: () => dispatch(getGymList())
+})
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(GymList)
