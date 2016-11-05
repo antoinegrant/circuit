@@ -24,7 +24,7 @@ class GymList extends Component {
               <li key={gym.id}>
                 <Link to={`/gym-${gym.id}`}>{gym.name}</Link>
                 {auth.isAdmin ? (
-                  <span> | <Link to={`/gym-${gym.id}/add-circuit`}>Add Circuit</Link></span>
+                  <span> | <Link to={`/admin/gym-${gym.id}/add-circuit`}>Add Circuit</Link></span>
                 ) : null}
                 <div>{gym.phone}</div>
                 <address>{gym.address}</address>

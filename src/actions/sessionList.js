@@ -2,14 +2,19 @@ const firebase = window.firebase;
 
 function fetchSessionList(userId) {
   return firebase.database()
-    .ref(`/climbing-sessions/${userId}`)
+    .ref(`/sessions/${userId}`)
     .once('value')
-    .then((snapshot) => [{
-      id: 'foo',
-      name: 'fooName',
-      completed: false,
-      timestamp: 1478189541
-    }])
+    .then((snapshot) => {
+      const data = snapshot.val()
+      return Object.keys(data)
+        .map(key => {
+          let session = data[key]
+          return {
+            id: key,
+            createdAt: session.createdAt
+          }
+        })
+    })
 }
 
 export const getSessionList = (userId) => (

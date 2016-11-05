@@ -13,12 +13,13 @@ let store = createStore(
   applyMiddleware(thunk)
 )
 
+import { AddCircuit, AddLevel } from '../Admin'
 import Login from '../Login'
 import Header from '../Header'
 import GymList from '../GymList'
 import SessionList from '../SessionList'
-// import NewSession from '../NewSession'
-// import CircuitList from '../CircuitList'
+import CircuitList from '../CircuitList'
+import NewSession from '../NewSession'
 // import ClimbList from '../ClimbList'
 // import Climb from '../Climb'
 
@@ -46,8 +47,6 @@ const MatchWhenAdmin = ({ component: Component, ...rest }) => (
   )} />
 )
 
-const HelloWorld = () => (<h1>Hello World</h1>)
-
 const App = () => (
   <Provider store={store}>
     <Router>
@@ -58,8 +57,11 @@ const App = () => (
 
           <MatchWhenAuthorized exactly pattern="/" component={GymList} />
           <MatchWhenAuthorized exactly pattern="/gym-:gym_id" component={SessionList} />
+          <MatchWhenAuthorized exactly pattern="/gym-:gym_id/new-session" component={NewSession} />
+          <MatchWhenAuthorized exactly pattern="/gym-:gym_id/:session_id" component={CircuitList} />
 
-          <MatchWhenAdmin exactly pattern="/gym-:gym_id/add-circuit" component={HelloWorld} />
+          <MatchWhenAdmin exactly pattern="/admin/gym-:gym_id/add-circuit" component={AddCircuit} />
+          <MatchWhenAdmin exactly pattern="/admin/gym-:gym_id/:circuit-id/add-level" component={AddLevel} />
         </div>
       )}
     </Router>

@@ -22,7 +22,7 @@ class SessionList extends Component {
         ) : (
           <ul>
             {data.map(session =>
-              <li key={session.id}><Link to={`${pathname}/${session.id}`}>{session.name}</Link></li>)}
+              <li key={session.id}><Link to={`${pathname}/${session.id}`}>{session.createdAt}</Link></li>)}
           </ul>
         )}
       </div>
